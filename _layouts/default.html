@@ -2,32 +2,53 @@
 layout: compress
 ---
 
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    {% include head.html %}
-    {% include head/custom.html %}
-  </head>
-
-  <body>
-
-    {% include browser-upgrade.html %}
-    {% include masthead.html %}
-
-    <div id="main" role="main">
-      {% include sidebar.html %}
-    
-      <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-        {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-        <div class="page__inner-wrap">
-          <section class="page__content" itemprop="text">
-            {{ content }}
-          </section>
-        </div>
-      </article>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 头部背景图 -->
+  <header class="site-header">
+    <div class="header-background"></div>
+    <div class="container">
+      <div class="site-logo">
+        <span>{{ site.author.name | slice: 0 }}</span>
+      </div>
+      <h1 class="site-title">{{ site.title }}</h1>
     </div>
+  </header>
 
-    {% include scripts.html %}
+  <!-- 主要内容区域 -->
+  <main class="site-main">
+    <div class="container">
+      <div class="layout-grid">
+        
+        <!-- 左侧栏 -->
+        <aside class="sidebar">
+          {% include profile-card.html %}
+          {% include social-links.html %}
+        </aside>
 
-  </body>
+        <!-- 右侧主内容 -->
+        <div class="main-content">
+          {{ content }}
+        </div>
+
+        <!-- 右侧固定导航 -->
+        <nav class="side-navigation">
+          {% include pages-menu.html %}
+        </nav>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+</body>
 </html>
